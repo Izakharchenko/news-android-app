@@ -1,6 +1,8 @@
 package com.example.newsapp
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,6 +10,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapp.databinding.ActivityMainBinding
+import com.example.newsapp.service.NewsService
+import com.example.newsapp.service.ServiceCreator
+import com.example.newsapp.service.ServiceCreator.await
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,5 +37,22 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+//        GlobalScope.launch {
+//            getData()
+//        }
+    }
+
+    private suspend fun getData() {
+
+        withContext(Dispatchers.Main) {
+
+            val list = ServiceCreator.create<NewsService>().getPosts().await()
+            if (list != null) {
+                for (news in list) {
+                    Log.d("MainActivity", "${news.title}")
+                }
+            }
+        }
     }
 }
