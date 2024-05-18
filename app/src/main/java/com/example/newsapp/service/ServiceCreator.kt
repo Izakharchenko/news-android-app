@@ -10,7 +10,7 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 object ServiceCreator {
-    private const val BASE_URL = "https://82d7-188-163-34-245.ngrok-free.app/api/"
+    private const val BASE_URL = "https://actual-moved-octopus.ngrok-free.app/api/"
 
 
     private val retrofit = Retrofit.Builder()

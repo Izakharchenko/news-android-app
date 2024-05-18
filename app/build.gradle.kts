@@ -7,6 +7,10 @@ android {
     namespace = "com.example.newsapp"
     compileSdk = 34
 
+//    dataBinding {
+//        enable = true
+//    }
+
     defaultConfig {
         applicationId = "com.example.newsapp"
         minSdk = 24
@@ -44,6 +48,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.retrofit)
+    implementation (libs.glide)
     implementation (libs.converter.gson)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.constraintlayout)
