@@ -12,12 +12,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
                 <ImageView
                     android:id="@+id/newsImageView"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:contentDescription="@string/news_image"
                     android:scaleType="centerCrop" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/titleTextView"
@@ -27,6 +38,7 @@
                     android:textColor="@android:color/darker_gray"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
 
         </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
