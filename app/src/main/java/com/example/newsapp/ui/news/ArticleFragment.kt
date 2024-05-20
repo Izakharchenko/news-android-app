@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentArticleBinding
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment() {
 
@@ -46,15 +48,24 @@ class ArticleFragment : Fragment() {
                 binding.newsContentTextView.text = it.body
                 binding.newsAuthorTextView.text = getString(R.string.author, it.author)
                 binding.newsSourceTextView.text = getString(R.string.source, it.source)
-
             }
 
         })
+
         articleViewModel.fetchArticle(newsId)
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.newsFavorite.setOnClickListener { view ->
+            Snackbar.make(view, "Article added to favorite", Snackbar.LENGTH_LONG)
+                .setAction("Undo") {
+                    Toast.makeText(context, "Removed from favorite", Toast.LENGTH_LONG).show()
+                }
+                .show()
+        }
+
     }
 
     override fun onDestroyView() {
