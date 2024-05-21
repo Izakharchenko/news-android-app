@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.news
+package com.example.newsapp.ui.adapters
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -14,17 +14,17 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.newsapp.R
-import com.example.newsapp.model.News
+import com.example.newsapp.model.Favorite
 
-class NewsAdapter(private val onItemClick: (String) -> Unit): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class FavoriteAdapter(private val onItemClick: (String) -> Unit) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
-    private var newsList: List<News> = listOf()
+    private var newsList: List<Favorite> = listOf()
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
         val newsImageView: ImageView = itemView.findViewById(R.id.newsImageView)
         val progressBar: ProgressBar = itemView.findViewById(R.id.progressBar)
 
-        fun bind(article: News) {
+        fun bind(article: Favorite) {
             titleTextView.text = article.title
             progressBar.visibility = View.VISIBLE
             Glide.with(itemView.context)
@@ -59,7 +59,7 @@ class NewsAdapter(private val onItemClick: (String) -> Unit): RecyclerView.Adapt
         }
     }
 
-    fun setNews(news: List<News>) {
+    fun setFavorite(news: List<Favorite>) {
         this.newsList = news
         notifyDataSetChanged()
     }
