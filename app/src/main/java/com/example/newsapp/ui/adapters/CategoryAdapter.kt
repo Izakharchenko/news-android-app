@@ -5,14 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.databinding.ItemCategoryBinding
 import com.example.newsapp.model.Category
+import com.example.newsapp.model.News
 
-class CategoryAdapter(private val categories: List<Category>, private val onCategoryClick: (Category) -> Unit) :
+class CategoryAdapter(private val onCategoryClick: (Int) -> Unit) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    private var categories: List<Category> = listOf()
     inner class CategoryViewHolder(private val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
             binding.categoryTitle.text = category.title
             binding.root.setOnClickListener {
-                onCategoryClick(category)
+                onCategoryClick(category.id!!)
             }
         }
     }
@@ -26,6 +29,15 @@ class CategoryAdapter(private val categories: List<Category>, private val onCate
     }
 
     override fun getItemCount() = categories.size
+
+    fun updateCategories(newCategoryList: List<Category>) {
+        this.categories = newCategoryList
+        notifyDataSetChanged()
+    }
+    fun setNews(news: List<Category>) {
+        this.categories = news
+        notifyDataSetChanged()
+    }
 
 
 }

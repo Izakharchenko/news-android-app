@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.ui.adapters.NewsAdapter
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentHomeBinding
+import com.example.newsapp.ui.adapters.CategoryAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private lateinit var newsAdapter: NewsAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var homeViewModel: HomeViewModel
 
     // This property is only valid between onCreateView and
@@ -44,6 +46,18 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_articleFragment, bundle)
         }
         recyclerView.adapter = newsAdapter
+        categoryAdapter = CategoryAdapter() { category ->
+            homeViewModel.filterNewsByCategory(category)
+        }
+
+        binding.categoryRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = categoryAdapter
+        }
+
+        homeViewModel.categories.observe(viewLifecycleOwner) { categories ->
+            categoryAdapter.updateCategories(categories)
+        }
 
         binding.swipeRefresh.setOnRefreshListener {
             refreshData()

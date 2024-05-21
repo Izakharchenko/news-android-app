@@ -21,6 +21,9 @@ class HomeViewModel : ViewModel() {
     val news: LiveData<List<News>> get() = _news
     val categories: LiveData<List<Category>> get() = _categories
 
+    init {
+        loadCategories()
+    }
     fun fetchNews() {
         viewModelScope.launch {
             try {
@@ -35,6 +38,18 @@ class HomeViewModel : ViewModel() {
 
     fun refreshFavoriteNews() {
         viewModelScope.launch {
+        }
+    }
+
+    private fun loadCategories() {
+        viewModelScope.launch {
+            _categories.value = categoryRepository.getCategories()
+        }
+    }
+
+    fun filterNewsByCategory(category: Int) {
+        viewModelScope.launch {
+            _news.value = repository.getNewsByCategory(category)
         }
     }
 
