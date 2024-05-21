@@ -46,7 +46,15 @@ class HomeFragment : Fragment() {
 
         // Спостерігайте за даними
         homeViewModel.news.observe(viewLifecycleOwner, Observer { news ->
-            newsAdapter.setNews(news)
+            if (news.isEmpty()) {
+                binding.recyclerView.visibility = View.GONE
+                binding.emptyView.visibility = View.VISIBLE
+            } else {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.emptyView.visibility = View.GONE
+                newsAdapter.setNews(news)
+            }
+
         })
 
         // Викликайте метод для завантаження даних
