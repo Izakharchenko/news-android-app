@@ -18,6 +18,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private lateinit var newsAdapter: NewsAdapter
+    private lateinit var homeViewModel: HomeViewModel
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
+        homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -44,7 +45,10 @@ class HomeFragment : Fragment() {
         }
         recyclerView.adapter = newsAdapter
 
-        // Спостерігайте за даними
+        binding.swipeRefresh.setOnRefreshListener {
+            refreshData()
+        }
+
         homeViewModel.news.observe(viewLifecycleOwner, Observer { news ->
             if (news.isEmpty()) {
                 binding.recyclerView.visibility = View.GONE
@@ -54,14 +58,17 @@ class HomeFragment : Fragment() {
                 binding.emptyView.visibility = View.GONE
                 newsAdapter.setNews(news)
             }
-
+            binding.swipeRefresh.isRefreshing = false
         })
 
-        // Викликайте метод для завантаження даних
         homeViewModel.fetchNews()
 
-
         return root
+    }
+
+    private fun refreshData() {
+        homeViewModel.refreshFavoriteNews()
+        binding.swipeRefresh.isRefreshing = false
     }
 
     override fun onDestroyView() {

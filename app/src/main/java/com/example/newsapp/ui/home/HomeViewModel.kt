@@ -33,4 +33,9 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun refreshFavoriteNews() {
+        viewModelScope.launch {
+        }
+    }
+
 }
