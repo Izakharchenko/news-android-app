@@ -6,26 +6,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
+import com.example.newsapp.databinding.FragmentFavoriteBinding
+import com.example.newsapp.db.AppDatabase
+import com.example.newsapp.repository.FavoriteRepository
+import com.example.newsapp.ui.news.NewsAdapter
 
 class FavoriteFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = FavoriteFragment()
-    }
+    private var _binding: FragmentFavoriteBinding? = null
+    private lateinit var adapter: FavoriteAdapter
 
-    private val viewModel: FavoriteViewModel by viewModels()
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
+    private val favoriteViewModel: FavoriteViewModel by viewModels {
+        val dao = AppDatabase.getDatabase(requireContext()).favoriteDao()
+        FavoriteViewModelFactory(FavoriteRepository(dao))
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapter = FavoriteAdapter { newsId ->
+            val bundle = Bundle().apply {
+                putString("newsId", newsId)
+            }
+            findNavController().navigate(R.id.action_favoriteFragment_to_articleFragment, bundle)
+        }
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        if (adapter.itemCount == 0) {
+            binding.recyclerView.visibility = View.GONE
+            binding.emptyView.visibility = View.VISIBLE
+        } else {
+            binding.recyclerView.adapter = adapter
+        }
+
+        favoriteViewModel.favoriteNews.observe(viewLifecycleOwner, Observer { news ->
+            news?.let { adapter.setFavorite(news) }
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -11,4 +11,6 @@
     <string name="source">Source: %1$s</string>
     <string name="favorite">Favorite</string>
     <string name="image">Image</string>
+    <string name="no_news">No Articles</string>
+    <string name="no_favorite">No favorite Articles</string>
 </resources>

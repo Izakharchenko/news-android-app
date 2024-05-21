@@ -2,6 +2,7 @@ package com.example.newsapp.repository
 
 import com.example.newsapp.db.FavoriteDao
 import com.example.newsapp.model.Favorite
+import kotlinx.coroutines.flow.Flow
 
 class FavoriteRepository(private val favoriteDao: FavoriteDao) {
     suspend fun insert(news: Favorite) {
@@ -14,6 +15,10 @@ class FavoriteRepository(private val favoriteDao: FavoriteDao) {
 
     suspend fun deleteById(news: Favorite) {
         favoriteDao.delete(news)
+    }
+
+    fun getFavorites(): Flow<List<Favorite>> {
+        return favoriteDao.getFavorites()
     }
 
 

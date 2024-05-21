@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.newsapp.model.Favorite
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteDao {
@@ -13,7 +14,7 @@ interface FavoriteDao {
     @Query("SELECT * FROM Favorite WHERE id = :id LIMIT 1")
     fun getFavoriteById(id: Int): Favorite?
     @Query("SELECT * FROM Favorite")
-    fun getAll(): List<Favorite>
+    fun getFavorites(): Flow<List<Favorite>>
 
     @Delete
     fun delete(favorite: Favorite)
