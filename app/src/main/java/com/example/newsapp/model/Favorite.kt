@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class Favorite(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "category_id") val categoryId: Int,
+    @ColumnInfo(name = "category_title") val categoryTitle: String,
     val title: String,
     val cover: String,
     val body: String,

@@ -14,4 +14,8 @@ interface NewsService {
     @Headers("Content-Type: application/json")
     @GET("news/{id}")
     fun getPost(@Path("id") id: Int): Call<News>
+
+    @Headers("Content-Type: application/json")
+    @GET("news/categories/{id}")
+    fun getPostsByCategories(@Path("id") id: Int): Call<List<News>>
 }

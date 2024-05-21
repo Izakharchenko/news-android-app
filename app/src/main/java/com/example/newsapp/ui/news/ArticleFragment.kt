@@ -61,11 +61,12 @@ class ArticleFragment : Fragment() {
             article?.let {
                 binding.collapsingToolbar.title = it.title
                 Glide.with(this).load(it.cover).into(binding.newsImageView)
+                binding.newsCategoryTextView.text = it.categoryTitle
                 binding.newsContentTextView.text = it.body
                 binding.newsAuthorTextView.text = getString(R.string.author, it.author)
                 binding.newsSourceTextView.text = getString(R.string.source, it.source)
                 currentNews = Favorite(
-                    it.id!!, it.categoryId, it.title, it.cover, it.body, it.source, it.author
+                    it.id!!, it.categoryId, it.categoryTitle, it.title, it.cover, it.body, it.source, it.author
                 )
             }
 
