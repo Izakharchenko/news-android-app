@@ -23,6 +23,7 @@ class HomeViewModel : ViewModel() {
 
     init {
         loadCategories()
+        fetchNews()
     }
     fun fetchNews() {
         viewModelScope.launch {

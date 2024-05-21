@@ -75,8 +75,6 @@ class HomeFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = false
         })
 
-        homeViewModel.fetchNews()
-
         return root
     }
 
