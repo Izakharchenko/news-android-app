@@ -44,18 +44,26 @@ class FavoriteFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_favoriteFragment_to_articleFragment, bundle)
         }
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         if (adapter.itemCount == 0) {
             binding.recyclerView.visibility = View.GONE
             binding.emptyView.visibility = View.VISIBLE
         } else {
-            binding.recyclerView.adapter = adapter
+
         }
 
-        favoriteViewModel.favoriteNews.observe(viewLifecycleOwner, Observer { news ->
-            news?.let { adapter.setFavorite(news) }
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
+
+        favoriteViewModel.favoriteNews.observe(viewLifecycleOwner, Observer { favorite ->
+            if (favorite.isNullOrEmpty()) {
+                binding.recyclerView.visibility = View.GONE
+                binding.emptyView.visibility = View.VISIBLE
+            } else {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.emptyView.visibility = View.GONE
+                favorite.let { adapter.setFavorite(favorite) }
+            }
+
         })
     }
 

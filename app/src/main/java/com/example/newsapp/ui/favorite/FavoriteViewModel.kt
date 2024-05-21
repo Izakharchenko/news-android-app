@@ -13,17 +13,4 @@ import kotlinx.coroutines.launch
 class FavoriteViewModel( private val repository: FavoriteRepository) : ViewModel() {
 
     val favoriteNews: LiveData<List<Favorite>> = repository.getFavorites().asLiveData()
-
-//    fun removeNewsFromFavorites(news: Favorite) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repositoryFav.deleteById(news)
-//        }
-//    }
-//
-//    fun getFavorites() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repositoryFav.getFavorites()
-//        }
-//    }
-
 }
