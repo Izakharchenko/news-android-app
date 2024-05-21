@@ -32,9 +32,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="?attr/homeAsUpIndicator" />
-
+                app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -87,6 +85,7 @@
         android:contentDescription="@string/favorite"
         android:src="@drawable/baseline_favorite_border_24"
         app:layout_anchor="@id/appBar"
+        app:backgroundTint="@color/purple_200"
         app:layout_anchorGravity="bottom|end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

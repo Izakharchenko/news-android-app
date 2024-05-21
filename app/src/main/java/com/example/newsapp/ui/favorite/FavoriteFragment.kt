@@ -13,7 +13,7 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentFavoriteBinding
 import com.example.newsapp.db.AppDatabase
 import com.example.newsapp.repository.FavoriteRepository
-import com.example.newsapp.ui.news.NewsAdapter
+import com.example.newsapp.ui.adapters.FavoriteAdapter
 
 class FavoriteFragment : Fragment() {
 

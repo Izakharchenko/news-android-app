@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapp.ui.news.NewsAdapter
+import com.example.newsapp.ui.adapters.NewsAdapter
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentHomeBinding
 
