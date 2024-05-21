@@ -44,12 +44,6 @@ class FavoriteFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_favoriteFragment_to_articleFragment, bundle)
         }
-        if (adapter.itemCount == 0) {
-            binding.recyclerView.visibility = View.GONE
-            binding.emptyView.visibility = View.VISIBLE
-        } else {
-
-        }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
