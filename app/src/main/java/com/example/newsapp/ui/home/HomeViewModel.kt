@@ -34,7 +34,6 @@ class HomeViewModel : ViewModel() {
                 allNews = result
                 _news.postValue(result)
             } catch (e: Exception) {
-                // Обробка помилок
                 _news.postValue(emptyList())
             }
         }

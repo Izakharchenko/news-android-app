@@ -2,6 +2,7 @@ package com.example.newsapp.repository
 
 import android.app.Application
 import com.example.newsapp.model.News
+import com.example.newsapp.model.PopArticle
 import com.example.newsapp.service.NewsService
 import com.example.newsapp.service.ServiceCreator
 import com.example.newsapp.service.ServiceCreator.await
@@ -22,6 +23,9 @@ class NewsRepositoryImpl() : NewsRepository {
 
     override suspend fun incrementViewCount(id: Int): Int {
         return ServiceCreator.create<NewsService>().incrementViewCount(id).await()
+    }
+    suspend fun getMostPopularNews(): PopArticle {
+        return ServiceCreator.create<NewsService>().getMostPopularNews().await()
     }
 
 

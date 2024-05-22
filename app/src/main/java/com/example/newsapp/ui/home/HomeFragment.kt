@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,7 +62,7 @@ class HomeFragment : Fragment() {
             refreshData()
         }
 
-        homeViewModel.news.observe(viewLifecycleOwner, Observer { news ->
+        homeViewModel.news.observe(viewLifecycleOwner) { news ->
             if (news.isEmpty()) {
                 binding.recyclerView.visibility = View.GONE
                 binding.emptyView.visibility = View.VISIBLE
@@ -73,7 +72,7 @@ class HomeFragment : Fragment() {
                 newsAdapter.setNews(news)
             }
             binding.swipeRefresh.isRefreshing = false
-        })
+        }
 
         return root
     }

@@ -11,4 +11,5 @@ data class News(
     val body: String,
     val source: String,
     val author: String,
+    val views: Int,
 )
