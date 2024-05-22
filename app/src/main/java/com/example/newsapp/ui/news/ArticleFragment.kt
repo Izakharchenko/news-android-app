@@ -74,6 +74,12 @@ class ArticleFragment : Fragment() {
 
         articleViewModel.fetchArticle(newsId)
 
+        articleViewModel.incrementViewCount(newsId.toInt())
+
+        articleViewModel.viewCount.observe(viewLifecycleOwner) { viewCount ->
+            binding.newsViewCountTextView.text = getString(R.string.views, "$viewCount")
+        }
+
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }

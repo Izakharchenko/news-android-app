@@ -19,4 +19,10 @@ class NewsRepositoryImpl() : NewsRepository {
     override suspend fun getNewsByCategory(category: Int): List<News> {
         return ServiceCreator.create<NewsService>().getPostsByCategories(category).await()
     }
+
+    override suspend fun incrementViewCount(id: Int): Int {
+        return ServiceCreator.create<NewsService>().incrementViewCount(id).await()
+    }
+
+
 }

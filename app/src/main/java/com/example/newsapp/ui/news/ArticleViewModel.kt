@@ -18,7 +18,9 @@ import kotlinx.coroutines.withContext
 class ArticleViewModel(private val repository: NewsRepositoryImpl, private val repositoryFav: FavoriteRepository) : ViewModel() {
 
     private val _article = MutableLiveData<News>()
+    private val _viewCount = MutableLiveData<Int>()
     val article: LiveData<News> get() = _article
+    val viewCount: LiveData<Int> get() = _viewCount
 
     fun fetchArticle(newsId: String) {
         viewModelScope.launch {
@@ -50,6 +52,16 @@ class ArticleViewModel(private val repository: NewsRepositoryImpl, private val r
     suspend fun isNewsFavorite(id: Int): Boolean {
         return withContext(Dispatchers.IO) {
              repositoryFav.getNewsById(id) != null
+        }
+    }
+    fun incrementViewCount(id: Int) {
+        viewModelScope.launch {
+            try {
+                val newViewCount = repository.incrementViewCount(id)
+                _viewCount.postValue(newViewCount)
+            } catch (e: Exception) {
+                // Handle exception
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import com.example.newsapp.model.News
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface NewsService {
@@ -18,4 +19,8 @@ interface NewsService {
     @Headers("Content-Type: application/json")
     @GET("news/categories/{id}")
     fun getPostsByCategories(@Path("id") id: Int): Call<List<News>>
+
+    @Headers("Content-Type: application/json")
+    @PATCH("news/{id}/increment-view-count")
+    fun incrementViewCount(@Path("id") id: Int) : Call<Int>
 }

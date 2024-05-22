@@ -7,4 +7,6 @@ interface NewsRepository {
     suspend fun getNewsById(id: Int): News
 
     suspend fun getNewsByCategory(category: Int): List<News>
+
+    suspend fun  incrementViewCount(id: Int) : Int
 }
