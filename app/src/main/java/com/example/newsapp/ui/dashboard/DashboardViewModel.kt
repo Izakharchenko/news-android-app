@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapp.model.PopArticle
 import com.example.newsapp.repository.CategoryRepositoryImpl
 import com.example.newsapp.repository.NewsRepositoryImpl
+import com.example.newsapp.service.CategoryService
+import com.example.newsapp.service.ServiceCreator
 import kotlinx.coroutines.launch
 
 class DashboardViewModel : ViewModel() {
 
     private val newsRepository = NewsRepositoryImpl()
-    private val categoryRepository = CategoryRepositoryImpl()
+    private val categoryRepository = CategoryRepositoryImpl(ServiceCreator.create<CategoryService>())
 
     private val _totalNewsCount = MutableLiveData<Int>()
     private val _totalCategoryCount = MutableLiveData<Int>()

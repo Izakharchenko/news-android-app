@@ -1,21 +1,18 @@
 package com.example.newsapp.ui.news
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapp.db.AppDatabase
 import com.example.newsapp.model.Favorite
 import com.example.newsapp.model.News
-import com.example.newsapp.repository.FavoriteRepository
+import com.example.newsapp.repository.FavoriteRepositoryImpl
 import com.example.newsapp.repository.NewsRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ArticleViewModel(private val repository: NewsRepositoryImpl, private val repositoryFav: FavoriteRepository) : ViewModel() {
+class ArticleViewModel(private val repository: NewsRepositoryImpl, private val repositoryFav: FavoriteRepositoryImpl) : ViewModel() {
 
     private val _article = MutableLiveData<News>()
     private val _viewCount = MutableLiveData<Int>()

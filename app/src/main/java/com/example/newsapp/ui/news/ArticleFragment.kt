@@ -15,12 +15,10 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentArticleBinding
 import com.example.newsapp.db.AppDatabase
 import com.example.newsapp.model.Favorite
-import com.example.newsapp.repository.FavoriteRepository
-import com.example.newsapp.repository.NewsRepository
+import com.example.newsapp.repository.FavoriteRepositoryImpl
 import com.example.newsapp.repository.NewsRepositoryImpl
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
 
 class ArticleFragment : Fragment() {
 
@@ -47,9 +45,9 @@ class ArticleFragment : Fragment() {
         val newsId = arguments?.getString("newsId") ?: return
 
         val newsDao = AppDatabase.getDatabase(requireContext()).favoriteDao()
-        val favoriteRepository = FavoriteRepository(newsDao)
+        val favoriteRepositoryImpl = FavoriteRepositoryImpl(newsDao)
         val repository = NewsRepositoryImpl()
-        val factory = ArticleViewModelFactory(repository, favoriteRepository)
+        val factory = ArticleViewModelFactory(repository, favoriteRepositoryImpl)
         articleViewModel = ViewModelProvider(this, factory).get(ArticleViewModel::class.java)
 
         lifecycleScope.launch {

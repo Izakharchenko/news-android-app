@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentFavoriteBinding
 import com.example.newsapp.db.AppDatabase
-import com.example.newsapp.repository.FavoriteRepository
+import com.example.newsapp.repository.FavoriteRepositoryImpl
 import com.example.newsapp.ui.adapters.FavoriteAdapter
 
 class FavoriteFragment : Fragment() {
@@ -24,7 +24,7 @@ class FavoriteFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels {
         val dao = AppDatabase.getDatabase(requireContext()).favoriteDao()
-        FavoriteViewModelFactory(FavoriteRepository(dao))
+        FavoriteViewModelFactory(FavoriteRepositoryImpl(dao))
     }
 
     override fun onCreateView(

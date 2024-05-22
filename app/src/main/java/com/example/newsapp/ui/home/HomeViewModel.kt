@@ -9,12 +9,14 @@ import com.example.newsapp.model.Category
 import com.example.newsapp.model.News
 import com.example.newsapp.repository.CategoryRepositoryImpl
 import com.example.newsapp.repository.NewsRepositoryImpl
+import com.example.newsapp.service.CategoryService
+import com.example.newsapp.service.ServiceCreator
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
     private val repository = NewsRepositoryImpl()
-    private val categoryRepository = CategoryRepositoryImpl()
+    private val categoryRepository = CategoryRepositoryImpl(ServiceCreator.create<CategoryService>())
 
     private val _news = MutableLiveData<List<News>>()
     private val _categories = MutableLiveData<List<Category>>()
