@@ -3,6 +3,7 @@ package com.example.newsapp.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.model.Category
 import com.example.newsapp.model.News
@@ -21,6 +22,7 @@ class HomeViewModel : ViewModel() {
     val news: LiveData<List<News>> get() = _news
     val categories: LiveData<List<Category>> get() = _categories
 
+    private var allNews = listOf<News>()
     init {
         loadCategories()
         fetchNews()
@@ -29,6 +31,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val result = repository.getNews()
+                allNews = result
                 _news.postValue(result)
             } catch (e: Exception) {
                 // Обробка помилок
@@ -44,13 +47,18 @@ class HomeViewModel : ViewModel() {
 
     private fun loadCategories() {
         viewModelScope.launch {
-            _categories.value = categoryRepository.getCategories()
+            val categoryList = categoryRepository.getCategories()
+            _categories.value = listOf(Category(0, "All Categories")) + categoryList
         }
     }
 
     fun filterNewsByCategory(category: Int) {
         viewModelScope.launch {
-            _news.value = repository.getNewsByCategory(category)
+            if (category == 0) {
+                _news.postValue(allNews)
+            } else {
+                _news.postValue(repository.getNewsByCategory(category))
+            }
         }
     }
 
