@@ -9,7 +9,7 @@ class FavoriteRepositoryImpl(private val favoriteDao: FavoriteDao) : FavoriteRep
         favoriteDao.insert(news)
     }
 
-    override suspend fun getNewsById(id: Int): Favorite? {
+    override suspend fun getFavoriteById(id: Int): Favorite? {
         return favoriteDao.getFavoriteById(id)
     }
 

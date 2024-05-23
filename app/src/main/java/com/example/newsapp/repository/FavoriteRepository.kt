@@ -7,7 +7,7 @@ interface FavoriteRepository {
 
     suspend fun insert(news: Favorite)
 
-    suspend fun getNewsById(id: Int): Favorite?
+    suspend fun getFavoriteById(id: Int): Favorite?
 
     suspend fun deleteById(news: Favorite)
 

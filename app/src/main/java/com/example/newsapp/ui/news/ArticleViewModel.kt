@@ -47,7 +47,7 @@ class ArticleViewModel(private val repository: NewsRepositoryImpl, private val r
 
     suspend fun isNewsFavorite(id: Int): Boolean {
         return withContext(Dispatchers.IO) {
-             repositoryFav.getNewsById(id) != null
+             repositoryFav.getFavoriteById(id) != null
         }
     }
     fun incrementViewCount(id: Int) {

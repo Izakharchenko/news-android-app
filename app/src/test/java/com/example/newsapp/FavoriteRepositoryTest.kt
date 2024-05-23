@@ -11,7 +11,6 @@ import io.mockk.just
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -53,6 +52,17 @@ class FavoriteRepositoryTest {
         repository.deleteById(favorite)
 
         coVerify (exactly = 1) { favoriteDao.delete(favorite) }
+    }
+
+    @Test
+    fun `get favorite by id`() = runBlocking {
+        coEvery { favoriteDao.getFavoriteById(1) } returns favorite
+
+        repository.getFavoriteById(favorite.id)
+
+        val result = repository.getFavoriteById(1)
+
+        assertEquals(favorite, result)
     }
 
     @Test
