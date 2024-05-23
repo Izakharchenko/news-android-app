@@ -11,15 +11,15 @@ import retrofit2.http.Path
 interface NewsService {
     @Headers("Content-Type: application/json")
     @GET("news")
-    fun getPosts(): Call<List<News>>
+    fun getNews(): Call<List<News>>
 
     @Headers("Content-Type: application/json")
     @GET("news/{id}")
-    fun getPost(@Path("id") id: Int): Call<News>
+    fun getNews(@Path("id") id: Int): Call<News>
 
     @Headers("Content-Type: application/json")
     @GET("news/categories/{id}")
-    fun getPostsByCategories(@Path("id") id: Int): Call<List<News>>
+    fun getNewsByCategories(@Path("id") id: Int): Call<List<News>>
 
     @Headers("Content-Type: application/json")
     @PATCH("news/{id}/increment-view-count")

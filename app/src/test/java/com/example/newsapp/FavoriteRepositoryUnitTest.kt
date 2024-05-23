@@ -18,7 +18,7 @@ import org.junit.Before
 import org.junit.Test
 
 
-class FavoriteRepositoryTest {
+class FavoriteRepositoryUnitTest {
     private lateinit var favoriteDao: FavoriteDao
     private lateinit var repository: FavoriteRepository
 
@@ -56,11 +56,10 @@ class FavoriteRepositoryTest {
 
     @Test
     fun `get favorite by id`() = runBlocking {
-        coEvery { favoriteDao.getFavoriteById(1) } returns favorite
+        val id = favorite.id
+        coEvery { favoriteDao.getFavoriteById(id) } returns favorite
 
-        repository.getFavoriteById(favorite.id)
-
-        val result = repository.getFavoriteById(1)
+        val result = repository.getFavoriteById(id)
 
         assertEquals(favorite, result)
     }

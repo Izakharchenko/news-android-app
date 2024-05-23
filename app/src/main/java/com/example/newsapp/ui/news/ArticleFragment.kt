@@ -17,6 +17,8 @@ import com.example.newsapp.db.AppDatabase
 import com.example.newsapp.model.Favorite
 import com.example.newsapp.repository.FavoriteRepositoryImpl
 import com.example.newsapp.repository.NewsRepositoryImpl
+import com.example.newsapp.service.ServiceCreator
+import com.example.newsapp.service.NewsService
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -40,7 +42,7 @@ class ArticleFragment : Fragment() {
 
         val newsDao = AppDatabase.getDatabase(requireContext()).favoriteDao()
         val favoriteRepositoryImpl = FavoriteRepositoryImpl(newsDao)
-        val repository = NewsRepositoryImpl()
+        val repository = NewsRepositoryImpl(ServiceCreator.create<NewsService>())
         val factory = ArticleViewModelFactory(repository, favoriteRepositoryImpl)
         articleViewModel = ViewModelProvider(this, factory).get(ArticleViewModel::class.java)
 

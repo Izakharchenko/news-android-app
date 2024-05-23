@@ -3,19 +3,19 @@ package com.example.newsapp.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.model.Category
 import com.example.newsapp.model.News
 import com.example.newsapp.repository.CategoryRepositoryImpl
 import com.example.newsapp.repository.NewsRepositoryImpl
 import com.example.newsapp.service.CategoryService
+import com.example.newsapp.service.NewsService
 import com.example.newsapp.service.ServiceCreator
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    private val repository = NewsRepositoryImpl()
+    private val repository = NewsRepositoryImpl(ServiceCreator.create<NewsService>())
     private val categoryRepository = CategoryRepositoryImpl(ServiceCreator.create<CategoryService>())
 
     private val _news = MutableLiveData<List<News>>()
