@@ -26,10 +26,20 @@ object ServiceCreator {
         return suspendCoroutine { continuation ->
             enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
-                    val body = response.body()
-                    if (body != null) continuation.resume(body)
-                    else continuation.resumeWithException(
-                        RuntimeException("response body is null"))
+                    if (response.isSuccessful) {
+                        val body = response.body()
+                        if (body != null) {
+                            continuation.resume(body)
+                        } else {
+                            continuation.resumeWithException(
+                                RuntimeException("Response body is null")
+                            )
+                        }
+                    } else {
+                        continuation.resumeWithException(
+                            RuntimeException("Response is not successful: ${response.code()}")
+                        )
+                    }
                 }
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     continuation.resumeWithException(t)

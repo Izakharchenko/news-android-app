@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.news
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ArticleViewModel(private val repository: NewsRepositoryImpl, private val repositoryFav: FavoriteRepositoryImpl) : ViewModel() {
-
     private val _article = MutableLiveData<News>()
     private val _viewCount = MutableLiveData<Int>()
     val article: LiveData<News> get() = _article
@@ -25,8 +25,7 @@ class ArticleViewModel(private val repository: NewsRepositoryImpl, private val r
                 val result = repository.getNewsById(newsId.toInt())
                 _article.postValue(result)
             } catch (e: Exception) {
-                // Обробка помилок
-//                _article.postValue()
+                Log.e("ArticleViewModel", "Error fetching news", e)
             }
         }
     }
