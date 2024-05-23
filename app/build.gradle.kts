@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.core.ktx)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,6 +68,12 @@ dependencies {
     kapt("androidx.room:room-compiler:2.5.2")
     implementation ("androidx.room:room-ktx:2.5.2")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    testImplementation ("org.mockito:mockito-core:3.11.2")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
+    testImplementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    testImplementation ("io.mockk:mockk:1.12.0")
+    testImplementation ("androidx.room:room-testing:2.3.0")
+
 }
 
 buildscript {
