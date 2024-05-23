@@ -37,6 +37,13 @@ class ArticleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
+
+        val newsDao = AppDatabase.getDatabase(requireContext()).favoriteDao()
+        val favoriteRepositoryImpl = FavoriteRepositoryImpl(newsDao)
+        val repository = NewsRepositoryImpl()
+        val factory = ArticleViewModelFactory(repository, favoriteRepositoryImpl)
+        articleViewModel = ViewModelProvider(this, factory).get(ArticleViewModel::class.java)
+
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,11 +51,7 @@ class ArticleFragment : Fragment() {
 
         val newsId = arguments?.getString("newsId") ?: return
 
-        val newsDao = AppDatabase.getDatabase(requireContext()).favoriteDao()
-        val favoriteRepositoryImpl = FavoriteRepositoryImpl(newsDao)
-        val repository = NewsRepositoryImpl()
-        val factory = ArticleViewModelFactory(repository, favoriteRepositoryImpl)
-        articleViewModel = ViewModelProvider(this, factory).get(ArticleViewModel::class.java)
+
 
         lifecycleScope.launch {
             isFavorite = articleViewModel.isNewsFavorite(newsId.toInt())
