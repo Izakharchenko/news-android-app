@@ -1,16 +1,17 @@
 package com.example.newsapp
 
-import android.util.Log
 import com.example.newsapp.model.News
 import com.example.newsapp.model.PopArticle
 import com.example.newsapp.repository.NewsRepository
 import com.example.newsapp.repository.NewsRepositoryImpl
 import com.example.newsapp.service.NewsService
+import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import retrofit2.Call
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import retrofit2.mock.Calls
@@ -98,6 +99,8 @@ class NewsRepositoryUnitTest {
         assertEquals(popArticle, result)
     }
 
-
-
+    @After
+    fun tearDown() {
+        clearAllMocks()
+    }
 }

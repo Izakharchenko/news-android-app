@@ -42,8 +42,8 @@ class HomeViewModel : ViewModel() {
     }
 
     fun refreshFavoriteNews() {
-        viewModelScope.launch {
-        }
+        loadCategories()
+        fetchNews()
     }
 
     private fun loadCategories() {

@@ -60,7 +60,7 @@ class ArticleFragment : Fragment() {
             setFavoriteIcon(isFavorite)
         }
 
-        articleViewModel.getArticle(newsId).observe(viewLifecycleOwner, Observer { article ->
+        articleViewModel.getArticle(newsId).observe(viewLifecycleOwner) { article ->
             article?.let {
                 binding.collapsingToolbar.title = it.title
                 Glide.with(this).load(it.cover).into(binding.newsImageView)
@@ -73,14 +73,17 @@ class ArticleFragment : Fragment() {
                 )
             }
 
-        })
+        }
 
         articleViewModel.fetchArticle(newsId)
 
         articleViewModel.incrementViewCount(newsId.toInt())
 
         articleViewModel.viewCount.observe(viewLifecycleOwner) { viewCount ->
-            binding.newsViewCountTextView.text = getString(R.string.views, "$viewCount")
+            if (viewCount != -1) {
+                binding.newsViewCountTextView.text = getString(R.string.views, "$viewCount")
+            }
+            binding.newsViewCountTextView.visibility = View.GONE
         }
 
         binding.toolbar.setNavigationOnClickListener {

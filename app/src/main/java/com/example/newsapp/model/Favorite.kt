@@ -14,4 +14,19 @@ data class Favorite(
     val body: String,
     val source: String,
     val author: String,
-)
+) {
+
+    fun toNews(): News? {
+        return News(
+            id = this.id,
+            title = this.title,
+            categoryId = this.categoryId,
+            categoryTitle = this.categoryTitle,
+            cover = this.cover,
+            body = this.body,
+            source = this.source,
+            author = this.author,
+            views = 0
+        )
+    }
+}

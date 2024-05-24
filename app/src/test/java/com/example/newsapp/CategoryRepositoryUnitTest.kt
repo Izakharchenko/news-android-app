@@ -4,10 +4,12 @@ import com.example.newsapp.model.Category
 import com.example.newsapp.repository.CategoryRepository
 import com.example.newsapp.repository.CategoryRepositoryImpl
 import com.example.newsapp.service.CategoryService
+import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Call
@@ -36,4 +38,9 @@ class CategoryRepositoryUnitTest {
 
         assertEquals(categories, result)
     }
+    @After
+    fun tearDown() {
+        clearAllMocks()
+    }
+
 }

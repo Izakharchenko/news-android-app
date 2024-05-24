@@ -2,9 +2,11 @@ package com.example.newsapp
 
 import com.example.newsapp.db.FavoriteDao
 import com.example.newsapp.model.Favorite
+import com.example.newsapp.model.News
 import com.example.newsapp.repository.FavoriteRepository
 import com.example.newsapp.repository.FavoriteRepositoryImpl
 import io.mockk.Runs
+import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.just
@@ -14,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -56,12 +59,13 @@ class FavoriteRepositoryUnitTest {
 
     @Test
     fun `get favorite by id`() = runBlocking {
+
         val id = favorite.id
         coEvery { favoriteDao.getFavoriteById(id) } returns favorite
 
         val result = repository.getFavoriteById(id)
 
-        assertEquals(favorite, result)
+        assertEquals(favorite.toNews(), result)
     }
 
     @Test
@@ -75,5 +79,10 @@ class FavoriteRepositoryUnitTest {
 
         // перевіряю чи перший елмент співпадає перший бо res [[favorite, favorite]]
         assertEquals(favoriteList, result.first())
+    }
+
+    @After
+    fun tearDown() {
+        clearAllMocks()
     }
 }

@@ -22,8 +22,14 @@ class ArticleViewModel(private val repository: NewsRepositoryImpl, private val r
     fun fetchArticle(newsId: String) {
         viewModelScope.launch {
             try {
-                val result = repository.getNewsById(newsId.toInt())
-                _article.postValue(result)
+                val favorites  =  withContext(Dispatchers.IO) {repositoryFav.getFavoriteById(newsId.toInt())}
+                if (favorites != null) {
+                    _article.postValue(favorites!!)
+                } else {
+                    val result = repository.getNewsById(newsId.toInt())
+                    _article.postValue(result)
+                }
+
             } catch (e: Exception) {
                 Log.e("ArticleViewModel", "Error fetching news", e)
             }

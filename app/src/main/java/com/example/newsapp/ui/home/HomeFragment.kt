@@ -58,9 +58,6 @@ class HomeFragment : Fragment() {
             categoryAdapter.updateCategories(categories)
         }
 
-        binding.swipeRefresh.setOnRefreshListener {
-            refreshData()
-        }
 
         homeViewModel.news.observe(viewLifecycleOwner) { news ->
             if (news.isEmpty()) {
@@ -74,13 +71,22 @@ class HomeFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = false
         }
 
+        setupSwipeToRefresh()
+
         return root
     }
 
-    private fun refreshData() {
+    private fun setupSwipeToRefresh() {
+        binding.swipeRefresh.setOnRefreshListener {
+            refreshDashboardStats()
+        }
+    }
+
+    private fun refreshDashboardStats() {
         homeViewModel.refreshFavoriteNews()
         binding.swipeRefresh.isRefreshing = false
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
