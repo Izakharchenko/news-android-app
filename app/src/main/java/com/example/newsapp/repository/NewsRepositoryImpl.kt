@@ -10,7 +10,7 @@ class NewsRepositoryImpl(private val newsService: NewsService) : NewsRepository 
 
     override suspend fun getNews(): List<News> {
         return try {
-            newsService.getNews().await() ?: emptyList()
+            newsService.getNews().await()
         } catch (e: Exception) {
             Log.e("getNews", e.message.toString())
             emptyList()
@@ -19,7 +19,7 @@ class NewsRepositoryImpl(private val newsService: NewsService) : NewsRepository 
 
     override suspend fun getNewsById(id: Int): News {
         return try {
-            newsService.getNews(id).await() ?: defaultArticle()
+            newsService.getNews(id).await()
         } catch (e: Exception) {
             Log.e("getNewsById", e.message.toString())
             defaultArticle()
@@ -46,7 +46,7 @@ class NewsRepositoryImpl(private val newsService: NewsService) : NewsRepository 
     }
     override suspend fun getMostPopularNews(): PopArticle {
         return  try {
-            newsService.getMostPopularNews().await() ?: defaultPopArticle()
+            newsService.getMostPopularNews().await()
         } catch (e: Exception) {
             Log.e("getMostPopularNews", e.message.toString())
             defaultPopArticle()
