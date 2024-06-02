@@ -37,7 +37,7 @@ class NewsRepositoryImpl(private val newsService: NewsService) : NewsRepository 
 
     override suspend fun incrementViewCount(id: Int): Int {
         return try {
-            newsService.incrementViewCount(id).await() ?: -1
+            newsService.incrementViewCount(id).await()
         } catch (e: Exception) {
             Log.e("incrementViewCount", e.message.toString())
             -1

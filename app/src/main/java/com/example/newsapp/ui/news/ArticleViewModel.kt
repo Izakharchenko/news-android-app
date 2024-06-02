@@ -58,12 +58,8 @@ class ArticleViewModel(private val repository: NewsRepositoryImpl, private val r
     }
     fun incrementViewCount(id: Int) {
         viewModelScope.launch {
-            try {
-                val newViewCount = repository.incrementViewCount(id)
-                _viewCount.postValue(newViewCount)
-            } catch (e: Exception) {
-                // Handle exception
-            }
+            val newViewCount = repository.incrementViewCount(id)
+            _viewCount.postValue(newViewCount)
         }
     }
 

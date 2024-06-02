@@ -76,7 +76,7 @@ class NewsRepositoryUnitTest {
     }
 
     @Test
-    fun `incrementViewCount return new view`() = runBlocking {
+    fun `incrementViewCount return new viewCount`() = runBlocking {
         val id = 1
         val newViewCount = 44
 
